@@ -4,9 +4,11 @@ from scrapy.utils.sitemap import Sitemap
 from medium.items import Post
 
 
-class URLSpider(Spider):
+class PostIdSpider(Spider):
 
-    name = 'url'
+    ''' Crawl xml sitemap looking for post_id '''
+
+    name = 'post_id'
 
     def start_requests(self):
         url = 'https://medium.com/sitemap/sitemap.xml'
@@ -33,3 +35,8 @@ class URLSpider(Spider):
                 if hasattr(self, 'day'):
                     url += f'{self.day}'
         return url
+
+
+class PostSpider(Spider):
+
+    ''' Exstract post data starting from post_id '''

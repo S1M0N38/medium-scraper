@@ -16,6 +16,10 @@ class PostPipeline:
         self.conn = sqlite3.connect(self.db_uri)
         self.cur = self.conn.cursor()
 
+        if spider.name == 'post':
+            spider.conn = self.conn
+            spider.cur = self.cur
+
     def close_spider(self, spider):
         self.conn.commit()
         self.conn.close()
@@ -49,7 +53,7 @@ class PostPipeline:
             '''
             UPDATE post
             SET creator_id = ?, language = ?, first_published_at = ?
-            WHERE ID = ? ''',
+            WHERE post_id = ? ''',
             post,
         )
         logger.debug('Post data updated: {", ".join(post)}')

@@ -21,11 +21,41 @@ class PostPipeline:
         self.conn.close()
 
     def process_item(self, item, spider):
+        if spider.name == 'post_id':
+            self.insert_post_id(item)
+        elif spider.name == 'post':
+            self.update_post(item)
+            self.insert_content(item)
+            self.insert_virtuals(item)
+        return item
+
+    def insert_post_id(self, item):
         post_id = (item['post_id'],)
         self.cur.execute('SELECT * FROM post WHERE post_id=?', post_id)
         if self.cur.fetchone():
-            logger.debug("Item already in database: %s" % item['post_id'])
+            logger.debug(f'Item already in database: {item["post_id"]}')
         else:
-            self.cur.execute('INSERT INTO post VALUES (?)', (item['post_id'],))
-            logger.debug("Item stored: %s" % item['post_id'])
-        return item
+            self.cur.execute('INSERT INTO post (post_id) VALUES (?)', post_id)
+            logger.debug(f'Post id stored: {item["post_id"]}')
+
+    def update_post(self, item):
+        post = (
+            item['creator_id'],
+            item['language'],
+            item['first_published_at'],
+            item['post_id'],
+        )
+        self.cur.execute(
+            '''
+            UPDATE post
+            SET creator_id = ?, language = ?, first_published_at = ?
+            WHERE ID = ? ''',
+            post,
+        )
+        logger.debug('Post data updated: {", ".join(post)}')
+
+    def insert_content(self, item):
+        pass
+
+    def insert_virtuals(self, item):
+        pass

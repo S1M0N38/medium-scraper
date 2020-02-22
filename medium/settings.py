@@ -96,4 +96,6 @@ AUTOTHROTTLE_DEBUG = False
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # Database
-SQLITE_URI = 'medium.db'
+DB_SETTINGS = {
+    'db': 'medium.db',
+}

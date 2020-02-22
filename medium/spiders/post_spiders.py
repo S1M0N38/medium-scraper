@@ -46,6 +46,7 @@ class PostSpider(scrapy.Spider):
 
     name = 'post'
     handle_httpstatus_list = [302, 410]
+    custom_settings = {'EXTENSIONS': {'medium.extensions.LogDBStats': 0}}
 
     def start_requests(self):
         self.cur.execute(

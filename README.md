@@ -22,7 +22,7 @@ different tables inside database.
 ## :books: Database structure
 
 All scraped data are store in a SQLite file (.db).
-To Create a new databese file create a duplicate of `medium.db.example` and
+To Create a new databese file create a duplicate of `example.db` and
 then rename it to `medium.db`. If you want use a grafical interface for interact
 with databese I suggest [DB Browser for SQLite](https://sqlitebrowser.org/).
 

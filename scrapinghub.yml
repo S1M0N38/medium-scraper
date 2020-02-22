@@ -1,4 +1,0 @@
-stack: scrapy:1.8-py3
-
-requirements:
-  file: Pipfile

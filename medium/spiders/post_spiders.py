@@ -45,7 +45,7 @@ class PostSpider(scrapy.Spider):
     ''' Exstract post data starting from post_id '''
 
     name = 'post'
-    handle_httpstatus_list = [302]
+    handle_httpstatus_list = [302, 410]
 
     def start_requests(self):
         self.cur.execute(
@@ -67,6 +67,9 @@ class PostSpider(scrapy.Spider):
         elif code == 302:
             yield self._post_302(response)
 
+        elif code == 410:
+            yield self._post_410(response)
+
         # add here other requests code if necessary
 
     def _post_200(self, response):
@@ -84,6 +87,11 @@ class PostSpider(scrapy.Spider):
     def _post_302(self, response):
         post_id = response.url.split('/')[-1]
         self.logger.debug('The post {post_id} removed (user is blacklisted)')
+        return Post(post_id=post_id, available=0)
+
+    def _post_410(self, response):
+        post_id = response.url.split('/')[-1]
+        self.logger.debug('The post {post_id} removed (user removed it)')
         return Post(post_id=post_id, available=0)
 
     # TODO content = post['content']

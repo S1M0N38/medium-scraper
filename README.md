@@ -70,7 +70,7 @@ TODO
 ## :zap: Usage
 
 First you need ad .db where store data read
-[Database Structure](https://github.com/S1M0N38/medium-scraping#medium-scraping).
+[Database Structure](https://github.com/S1M0N38/medium-scraping#books-database-structure).
 Then be sure to be at the root level of medium-scraping repo and activate
 the virtualenv with `pipenv shell`
 

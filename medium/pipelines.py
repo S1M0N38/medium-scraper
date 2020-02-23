@@ -35,8 +35,7 @@ class PostPipeline:
             self.conn.commit()
         elif spider.name == 'post':
             self.update_post(item)
-            self.insert_content(item)
-            self.insert_virtuals(item)
+            self.insert_paragraphs(item)
             self.conn.commit()
         return item
 
@@ -56,22 +55,42 @@ class PostPipeline:
             item.get('language'),
             item.get('first_published_at'),
             item.get('title'),
+            item.get('word_count'),
+            item.get('tags'),
             item.get('post_id'),
         )
         self.cur.execute(
             '''
             UPDATE post
-            SET available = ?, creator_id = ?,
-                language = ?, first_published_at = ?,  title = ?
+            SET available = ?, creator_id = ?, language = ?,
+                first_published_at = ?,  title = ?,
+                word_count = ?, tags = ?
             WHERE post_id = ? ''',
             post,
         )
         logger.debug(f'Post data updated: {item.get("post_id")}')
 
-    def insert_content(self, item):
-        ...
-        # TODO content spider
+    def insert_paragraphs(self, item):
+        post_id = item.get('post_id')
 
-    def insert_virtuals(self, item):
-        ...
-        # TODO virtuals spider
+        if not item.get('available'):
+            return
+
+        for p in item.get('paragraphs'):
+            paragraph = (
+                post_id,
+                p.get('name'),
+                p.get('type_'),
+                p.get('text'),
+            )
+            self.cur.execute(
+                '''
+                INSERT INTO paragraph (post_id, name, type, text)
+                VALUES (?, ?, ?, ?) ''',
+                paragraph,
+            )
+            msg = (
+                f'Paragraph insert (name - post_id):'
+                f'{p.get("name")} - {item.get("post_id")}'
+            )
+            logger.debug(msg)

@@ -70,14 +70,18 @@ As I said before database consists of two tables: *post* and *paragraph*.
 - **name**
   - a unique identifier for the paragraph (inside post)
 - **type**
-  - `1`
-  - `2`
-  - `3`
-  - `4`
-  - `5`
-  - `6`
+  - `1` normal
+  - `3` big bold header
+  - `6` quote
+  - `7` quote bigger and in the center
+  - `9` bullet list
+  - `10` ordered list
+  - `13` small bold header
 - **text**
   - the text inside the paragraph
+
+*Information about italic, bold, code and link stored in the markup list,
+currently not scraped by MS*
 
 ## :arrow_down: Installation
 

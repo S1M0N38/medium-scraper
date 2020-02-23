@@ -12,10 +12,9 @@ class PostPipeline:
 
     @classmethod
     def from_crawler(cls, crawler):
-        db_settings = crawler.settings.getdict('DB_SETTINGS')
-        if not db_settings:
+        db = crawler.settings.get('DB')
+        if not db:
             raise scrapy.exceptions.NotConfigured
-        db = db_settings['db']
         return cls(db)
 
     def open_spider(self, spider):

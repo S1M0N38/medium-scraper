@@ -96,6 +96,4 @@ AUTOTHROTTLE_DEBUG = False
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # Database
-DB_SETTINGS = {
-    'db': 'medium.db',
-}
+DB = 'medium.db'

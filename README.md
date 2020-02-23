@@ -58,15 +58,17 @@ As I said before database consists of two tables: *post* and *paragraph*.
 
 ### paragraph
 
-| post_id        | name   | type  | text                                 |
-| :------------: |:------:| :----:| :----------------------------------: |
-| `316d066db3d6` | `6f86` | `3`   | `One important thing productful ...` |
-| `316d066db3d6` | `eabd` | `1`   | `Quality ≠ Money`                    |
-| `3526667dacfb` | `94db` | `1`   | `Income in Development ...`          |
-| `...`          | `...`  | `...` | `...`                                |
+| post_id        | index | name   | type  | text                                 |
+| :------------: |:-----:|:------:| :----:| :----------------------------------: |
+| `316d066db3d6` | `0`   | `6f86` | `3`   | `One important thing productful ...` |
+| `316d066db3d6` | `1`   | `eabd` | `1`   | `Quality ≠ Money`                    |
+| `3526667dacfb` | `0`   | `94db` | `1`   | `Income in Development ...`          |
+| `...`          | `...` | `...`  | `...` | `...`                                |
 
 - **post_id**
   - a unique identifier for the post
+- **index**
+  - the order of the paragraphs of a post (starting from 0)
 - **name**
   - a unique identifier for the paragraph (inside post)
 - **type**

@@ -79,14 +79,15 @@ class PostPipeline:
         for p in item.get('paragraphs'):
             paragraph = (
                 post_id,
+                p.get('index'),
                 p.get('name'),
                 p.get('type_'),
                 p.get('text'),
             )
             self.cur.execute(
                 '''
-                INSERT INTO paragraph (post_id, name, type, text)
-                VALUES (?, ?, ?, ?) ''',
+                INSERT INTO paragraph (post_id, "index", name, type, text)
+                VALUES (?, ?, ?, ?, ?) ''',
                 paragraph,
             )
             msg = (

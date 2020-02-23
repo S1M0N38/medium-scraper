@@ -43,9 +43,14 @@ class PostSpider(scrapy.Spider):
         post = data['payload']['value']
 
         paragraphs = []
-        for par in post['content']['bodyModel']['paragraphs']:
+        for i, par in enumerate(post['content']['bodyModel']['paragraphs']):
             paragraphs.append(
-                Paragraph(name=par['name'], type_=par['type'], text=par['text'])
+                Paragraph(
+                    index=i,
+                    name=par['name'],
+                    type_=par['type'],
+                    text=par['text'],
+                )
             )
 
         tags = []

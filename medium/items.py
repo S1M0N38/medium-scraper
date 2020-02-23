@@ -14,6 +14,7 @@ class Post(scrapy.Item):
 
 
 class Paragraph(scrapy.Item):
+    index = scrapy.Field()
     name = scrapy.Field()
     type_ = scrapy.Field()
     text = scrapy.Field()

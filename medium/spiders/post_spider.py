@@ -2,7 +2,7 @@ import json
 
 import scrapy
 
-from medium.items import Post
+from medium.items import Post, Paragraph
 
 
 class PostSpider(scrapy.Spider):
@@ -42,6 +42,17 @@ class PostSpider(scrapy.Spider):
         data = json.loads(response.text[16:])
         post = data['payload']['value']
 
+        paragraphs = []
+        for par in post['content']['bodyModel']['paragraphs']:
+            paragraphs.append(
+                Paragraph(name=par['name'], type_=par['type'], text=par['text'])
+            )
+
+        tags = []
+        for t in post['virtuals']['tags']:
+            if t['type'] == 'Tag':
+                tags.append(t['slug'])
+
         return Post(
             post_id=post['id'],
             available=1,
@@ -49,6 +60,9 @@ class PostSpider(scrapy.Spider):
             language=post['detectedLanguage'],
             first_published_at=post['firstPublishedAt'],
             title=post['title'],
+            word_count=post['virtuals']['wordCount'],
+            tags=','.join(tags),
+            paragraphs=paragraphs,
         )
 
     def _post_302(self, response):
@@ -60,6 +74,3 @@ class PostSpider(scrapy.Spider):
         post_id = response.url.split('/')[-1]
         self.logger.debug('The post {post_id} removed (user removed it)')
         return Post(post_id=post_id, available=0)
-
-    # TODO content = post['content']
-    # TODO virtuals = post['virtuals']

@@ -16,7 +16,7 @@ Sitemap of medium website and store the found *post_id* in a
 
 Then the second spider (**post**) takes the *post_id* from database and permform
 a request for obstain the specific data for every post. Data about a post can
-be divided in three groups: *post*, *content* and *virtuals*. These are store in
+be divided in two groups: *posts*, and *paragraphs*. These are store in
 different tables inside database.
 
 ## :books: Database structure
@@ -26,21 +26,21 @@ To Create a new databese file create a duplicate of `example.db` and
 then rename it to `medium.db`. If you want use a grafical interface for interact
 with databese I suggest [DB Browser for SQLite](https://sqlitebrowser.org/).
 
-As I said before database consists of three tables: *post*, *content* and *virtuals*
+As I said before database consists of two tables: *post* and *paragraph*.
 
 ### post
 
-| post_id        | available | creator_id     | language | first_published_at |
-| :------------: |:---------:| :-------------:| :------: | :----------------: |
-| `316d066db3d6` | `1`       | `245c7224d0ce` | `en`     | `1577865630099`    |
-| `5edbf9af44af` | `0`       | `NULL`         | `NULL`   | `NULL`             |
-| `5edbf9af44af` | `NULL`    | `NULL`         | `NULL`   | `NULL`             |
-| `...`          | `...`     | `...`          | `...`    | `...`              |
+| post_id        | available | creator_id     | language | first_published_at | title      | word_count | tags      |
+| :------------: |:---------:| :-------------:| :------: | :----------------: | :--------: | :--------: | :---------:
+| `316d066db3d6` | `1`       | `245c7224d0ce` | `en`     | `1577865630099`    | `Intro...` | `4231`     | `cow,dog` |
+| `5edbf9af44af` | `0`       | `NULL`         | `NULL`   | `NULL`             | `NULL`     | `NULL`     | `NULL`    |
+| `fec8331faa9d` | `NULL`    | `NULL`         | `NULL`   | `NULL`             | `NULL`     | `NULL`     | `NULL`    |
+| `...`          | `...`     | `...`          | `...`    | `...`              | `...`      | `...`      | `...`     |
 
-- **post_id:**
+- **post_id**
   - a unique identifier for the post
-- **available:**
-  - `NULL` the post spider never try to scrape this post_id.
+- **available**
+  - `NULL` the post spider never try to scrape this post_id
   - `1` the post spider scrape succesfully this post_id
   - `0` the post spider faild to scrape this post_id
 - **creator_id**
@@ -48,15 +48,36 @@ As I said before database consists of three tables: *post*, *content* and *virtu
 - **language**
   - the language of the content of the post (detected by Medium)
 - **first_published_at**
-  - timestamp (ms) of the first pubblication of the post
+  - timestamp (milliseconds) of the first pubblication of the post
+- **title**
+  - the title of the post (can be not unique)
+- **word_count**
+  - the number of words contain in the post content
+- **tags**
+  - the tags related to the post (comma separated)
 
-### content
+### paragraph
 
-TODO
+| post_id        | name   | type  | text                                 |
+| :------------: |:------:| :----:| :----------------------------------: |
+| `316d066db3d6` | `6f86` | `3`   | `One important thing productful ...` |
+| `316d066db3d6` | `eabd` | `1`   | `Quality ≠ Money`                    |
+| `3526667dacfb` | `94db` | `1`   | `Income in Development ...`          |
+| `...`          | `...`  | `...` | `...`                                |
 
-### virtuals
-
-TODO
+- **post_id**
+  - a unique identifier for the post
+- **name**
+  - a unique identifier for the paragraph (inside post)
+- **type**
+  - `1`
+  - `2`
+  - `3`
+  - `4`
+  - `5`
+  - `6`
+- **text**
+  - the text inside the paragraph
 
 ## :arrow_down: Installation
 
@@ -76,13 +97,13 @@ the virtualenv with `pipenv shell`
 
 ### post_id spider
 
-- **Description:** this spider populate the post_id column of the post table
+- **Description** this spider populate the post_id column of the post table
 
-- **Arguments:** if no arguemnt is provide, this spider start scraping the whole
+- **Arguments** if no arguemnt is provide, this spider start scraping the whole
   site starting from the foundation year of Medium. Otherwise you can specify
   the date you want to scrape.
 
-- **Examples:**
+- **Examples**
   - `scrapy crawl post_id`
     scarpe post_id of whole website (not recommended)
   - `scrapy crawl post_id -a year=2020`
@@ -94,10 +115,10 @@ the virtualenv with `pipenv shell`
 
 ### post spider
 
-- **Description:** Look in the database for post_id with `NULL` available and
-  collect more information saved in post, content and virtuals tables.
+- **Description** Look in the database for post_id with `NULL` available and
+  collect more information saved in post and paragraph tables.
 
-- **Arguments:** no arguemnts can be passed
+- **Arguments** no arguemnts can be passed
 
-- **Examples:**
+- **Examples**
   - `scrapy crawl post`

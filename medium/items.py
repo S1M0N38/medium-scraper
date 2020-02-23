@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Define here the models for your scraped items
-#
-# See documentation in:
-# https://docs.scrapy.org/en/latest/topics/items.html
-
 import scrapy
 
 
@@ -15,3 +8,12 @@ class Post(scrapy.Item):
     language = scrapy.Field()
     first_published_at = scrapy.Field()
     title = scrapy.Field()
+    word_count = scrapy.Field()
+    tags = scrapy.Field()
+    paragraphs = scrapy.Field()
+
+
+class Paragraph(scrapy.Item):
+    name = scrapy.Field()
+    type_ = scrapy.Field()
+    text = scrapy.Field()

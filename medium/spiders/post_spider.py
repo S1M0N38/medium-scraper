@@ -48,6 +48,7 @@ class PostSpider(scrapy.Spider):
             creator_id=post['creatorId'],
             language=post['detectedLanguage'],
             first_published_at=post['firstPublishedAt'],
+            title=post['title'],
         )
 
     def _post_302(self, response):

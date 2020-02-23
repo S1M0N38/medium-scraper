@@ -14,3 +14,4 @@ class Post(scrapy.Item):
     creator_id = scrapy.Field()
     language = scrapy.Field()
     first_published_at = scrapy.Field()
+    title = scrapy.Field()

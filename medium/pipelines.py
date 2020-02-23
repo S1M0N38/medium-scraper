@@ -55,12 +55,14 @@ class PostPipeline:
             item.get('creator_id'),
             item.get('language'),
             item.get('first_published_at'),
+            item.get('title'),
             item.get('post_id'),
         )
         self.cur.execute(
             '''
             UPDATE post
-            SET available = ?, creator_id = ?, language = ?, first_published_at = ?
+            SET available = ?, creator_id = ?,
+                language = ?, first_published_at = ?,  title = ?
             WHERE post_id = ? ''',
             post,
         )

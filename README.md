@@ -23,8 +23,9 @@ different tables inside database.
 
 All scraped data are store in a SQLite file (.db).
 To Create a new databese file create a duplicate of `example.db` and
-then rename it to `medium.db`. If you want use a grafical interface for interact
-with databese I suggest [DB Browser for SQLite](https://sqlitebrowser.org/).
+then rename it to `medium.db` (medium.db is the default name for the database).
+If you want use a grafical interface for interact with databese I suggest
+[DB Browser for SQLite](https://sqlitebrowser.org/).
 
 As I said before database consists of two tables: *post* and *paragraph*.
 
@@ -108,8 +109,11 @@ the virtualenv with `pipenv shell`
 - **Description** this spider populate the post_id column of the post table
 
 - **Arguments** if no arguemnt is provide, this spider start scraping the whole
-  site starting from the foundation year of Medium. Otherwise you can specify
-  the date you want to scrape.
+  site starting from the foundation year of Medium and save all the data in
+  the `medium.db` file. With spider arguments (`-a`) you can specify year,
+  month and day. With settings arguments (`-s`) you can specify the name of
+  the SQLite database. Of course you have to create the .db
+  (e.g. `cp example.db another_database.db`)
 
 - **Examples**
   - `scrapy crawl post_id`
@@ -120,13 +124,18 @@ the virtualenv with `pipenv shell`
     scarpe post_id of posts published in Jan 2020
   - `scrapy crawl post_id -a year=2020 -a month=01 -a day=01`
     scarpe post_id of posts published on 1st of Jan 2020
+  - `scrapy crawl post_id -a year=2020 -a month=01 -s DB=another_database.db`
+    scarpe post_id of posts published in Jan 2020 and save on another_database.db
 
 ### post spider
 
 - **Description** Look in the database for post_id with `NULL` available and
   collect more information saved in post and paragraph tables.
 
-- **Arguments** no arguemnts can be passed
+- **Arguments** You can specify on which db store data
 
 - **Examples**
   - `scrapy crawl post`
+  scrape post data and save on `medium.db`
+  - `scrapy crawl post -s DB=another_database.db`
+  scrape post data and save on `another_database.db`

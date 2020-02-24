@@ -30,12 +30,12 @@ As I said before database consists of two tables: *post* and *paragraph*.
 
 ### post
 
-| post_id        | available | creator_id     | language | first_published_at | title      | word_count | tags      |
-| :------------: |:---------:| :-------------:| :------: | :----------------: | :--------: | :--------: | :---------:
-| `316d066db3d6` | `1`       | `245c7224d0ce` | `en`     | `1577865630099`    | `Intro...` | `4231`     | `cow,dog` |
-| `5edbf9af44af` | `0`       | `NULL`         | `NULL`   | `NULL`             | `NULL`     | `NULL`     | `NULL`    |
-| `fec8331faa9d` | `NULL`    | `NULL`         | `NULL`   | `NULL`             | `NULL`     | `NULL`     | `NULL`    |
-| `...`          | `...`     | `...`          | `...`    | `...`              | `...`      | `...`      | `...`     |
+| post_id        | available | creator_id     | language | first_published_at | title      | word_count | claps  | tags      |
+| :------------: |:---------:| :-------------:| :------: | :----------------: | :--------: | :--------: | :----: | :-------: |
+| `316d066db3d6` | `1`       | `245c7224d0ce` | `en`     | `1577865630099`    | `Intro...` | `4231`     | `341`  | `cow,dog` |
+| `5edbf9af44af` | `0`       | `NULL`         | `NULL`   | `NULL`             | `NULL`     | `NULL`     | `NULL` | `NULL`    |
+| `fec8331faa9d` | `NULL`    | `NULL`         | `NULL`   | `NULL`             | `NULL`     | `NULL`     | `NULL` | `NULL`    |
+| `...`          | `...`     | `...`          | `...`    | `...`              | `...`      | `...`      | `...`  | `...`     |
 
 - **post_id**
   - a unique identifier for the post
@@ -53,6 +53,8 @@ As I said before database consists of two tables: *post* and *paragraph*.
   - the title of the post (can be not unique)
 - **word_count**
   - the number of words contain in the post content
+- **claps**
+  - the total number of claps (on medium.com claps == likes)
 - **tags**
   - the tags related to the post (comma separated)
 

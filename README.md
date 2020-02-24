@@ -1,6 +1,6 @@
 # Medium Scraper
 
-medium-scraping (*MS*) is a scraper build using [Scrapy](https://scrapy.org/)
+medium-scraper (*MS*) is a scraper build using [Scrapy](https://scrapy.org/)
 framework for scrape [Medium](https://medium.com/) posts.
 
 > :warning: If you need only the scraped data check out the kaggle dataset (NOT READY)
@@ -87,8 +87,8 @@ currently not scraped by MS*
 
 ## :arrow_down: Installation
 
-1. Clone this repo: `git clone https://github.com/S1M0N38/medium-scraping.git`
-2. Move inside the cloned repo: `cd scraping-medium`
+1. Clone this repo: `git clone https://github.com/S1M0N38/medium-scraper.git`
+2. Move inside the cloned repo: `cd scraper-medium`
 3. Install dependecies with [pipenv](https://pipenv.readthedocs.io/en/latest/):
    `pipenv install`
 4. Enter the virtualenv: `pipenv shell`
@@ -97,8 +97,8 @@ currently not scraped by MS*
 ## :zap: Usage
 
 First you need ad .db where store data read
-[Database Structure](https://github.com/S1M0N38/medium-scraping#books-database-structure).
-Then be sure to be at the root level of medium-scraping repo and activate
+[Database Structure](https://github.com/S1M0N38/medium-scraper#books-database-structure).
+Then be sure to be at the root level of medium-scraper repo and activate
 the virtualenv with `pipenv shell`
 
 ### post_id spider

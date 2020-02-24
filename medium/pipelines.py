@@ -55,6 +55,7 @@ class PostPipeline:
             item.get('first_published_at'),
             item.get('title'),
             item.get('word_count'),
+            item.get('claps'),
             item.get('tags'),
             item.get('post_id'),
         )
@@ -63,7 +64,7 @@ class PostPipeline:
             UPDATE post
             SET available = ?, creator_id = ?, language = ?,
                 first_published_at = ?,  title = ?,
-                word_count = ?, tags = ?
+                word_count = ?, claps = ?, tags = ?
             WHERE post_id = ? ''',
             post,
         )

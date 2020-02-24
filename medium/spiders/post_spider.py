@@ -66,6 +66,7 @@ class PostSpider(scrapy.Spider):
             first_published_at=post['firstPublishedAt'],
             title=post['title'],
             word_count=post['virtuals']['wordCount'],
+            claps=post['virtuals']['totalClapCount'],
             tags=','.join(tags),
             paragraphs=paragraphs,
         )

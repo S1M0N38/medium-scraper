@@ -9,6 +9,7 @@ class Post(scrapy.Item):
     first_published_at = scrapy.Field()
     title = scrapy.Field()
     word_count = scrapy.Field()
+    claps = scrapy.Field()
     tags = scrapy.Field()
     paragraphs = scrapy.Field()
 

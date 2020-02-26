@@ -193,3 +193,8 @@ Temporary Items
 *.db-journal
 *.sqlite
 *.sqlite-journal
+
+
+#### bash script #########
+m2r
+r2m

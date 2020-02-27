@@ -23,7 +23,10 @@ class PostPipeline:
 
     def open_spider(self, spider):
         if not os.path.isfile(self.db_path):
-            self.create_db(spider)
+            if spider.name == 'post_id':
+                self.create_db(spider)
+            else:
+                raise FileNotFoundError(f'{self.db_path} not found')
         self.connect_db(spider)
 
     def connect_db(self, spider):

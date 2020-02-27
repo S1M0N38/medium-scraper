@@ -1,4 +1,6 @@
 import logging
+import os
+import shutil
 import sqlite3
 
 import scrapy
@@ -9,6 +11,8 @@ logger = logging.getLogger(__name__)
 class PostPipeline:
     def __init__(self, db):
         self.db = db
+        self.cwd = os.getcwd()
+        self.db_path = os.path.join(self.cwd, self.db)
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -18,12 +22,23 @@ class PostPipeline:
         return cls(db)
 
     def open_spider(self, spider):
+        if not os.path.isfile(self.db_path):
+            self.create_db(spider)
+        self.connect_db(spider)
+
+    def connect_db(self, spider):
         self.conn = sqlite3.connect(self.db)
         self.cur = self.conn.cursor()
-
+        # used in exstention to get DB percentage stats
         if spider.name == 'post':
             spider.conn = self.conn
             spider.cur = self.cur
+        logger.info(f'Connected to {self.db_path} database')
+
+    def create_db(self, spider):
+        db_example_path = os.path.join(self.cwd, 'example.sqlite')
+        shutil.copy(db_example_path, self.db_path)
+        logger.info(f'Created {self.db_path} database')
 
     def close_spider(self, spider):
         self.conn.close()

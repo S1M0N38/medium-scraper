@@ -3,8 +3,6 @@
 medium-scraper (*MS*) is a scraper build using [Scrapy](https://scrapy.org/)
 framework for scrape [Medium](https://medium.com/) posts.
 
-> :warning: If you need only the scraped data check out the kaggle dataset (NOT READY)
-
 ## :wrench: How it works
 
 *MS* consist of two scrapy [spider](https://docs.scrapy.org/en/latest/topics/spiders.html):
